@@ -1,0 +1,17 @@
+box: wercker/ubuntu12.04-ruby2.0.0
+build:
+
+deploy:
+  steps:
+    - script:
+      name: install Capistrano
+      code: bundle install
+    - create-file:
+      name: write ssh key
+      filename: $HOME/.ssh/id_rsa
+      overwrite: true
+      hide-from-log: true
+      content: $WERCKER_SSH_KEY_PRIVATE
+    - script:
+      name: deploy
+      code: ./deploy.sh
