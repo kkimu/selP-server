@@ -4,46 +4,25 @@ set -ex
 echo "------------ start setup.sh --------------"
 
 
-dm=`docker ps -f name=data-mysql -aq`
-if [ -z "${dm}" ]; then
-	docker run --name data-mysql -v /var/lib/mysql busybox
-fi
-
-mkdir -p ./files/images
+mkdir -p $PWD/static
 da=`docker ps -f name=data-app -aq`
 if [ -z "${da}" ]; then
-	docker run --name data-airmeet -v /go/airmeet/files:/files busybox
+	docker run --name data-app -v $PWD/static:/static busybox
 fi
 
-my=`docker ps -f name=mysql -q`
+my=`docker ps -f name=postgres -q`
 if [ -z "${my}" ]; then
-	docker build -t mysql:0.1 ./mysql
+	docker build -t postgres:0.1 ./postgres
 
 	docker run \
-		--name mysql \
-		--volumes-from data-mysql \
-		-v $PWD/mysql/conf.d:/etc/mysql/conf.d \
-		-v $PWD/mysql/init.d:/docker-entrypoint-initdb.d \
-		-e MYSQL_ROOT_PASSWORD=$DB_PASS \
-		-e MYSQL_DATABASE=airmeet \
-		-it \
+		--name postgres \
+		-e POSTGRES_PASSWORD=$DB_PASS \
 		-d \
-		-p 3306:3306 \
-		mysql:0.1 mysqld
+		-p 5432:5432 \
+		postgres:0.1
 
-	sleep 5 #mysql起動待ち
 fi
 
-cr=`docker ps -f name=cron -q`
-if [ -z "${cr}" ]; then
-	docker build -t cron:0.1 ./cron
-	docker run \
-		--name cron \
-		--link mysql \
-		-e DB_PASS=$DB_PASS \
-		-d \
-		cron:0.1
-fi
 
 ng=`docker ps -f name=nginx -q`
 if [ -z "${ng}" ]; then
@@ -56,23 +35,43 @@ if [ -z "${ng}" ]; then
 		nginx:0.1
 fi
 
-am=`docker ps -f name=app -q`
-if [ -n "${am}" ]; then
-	docker stop app
-	docker rm app
+
+
+ie=`docker ps -f name=image_engine -q`
+if [ -n "${ie}" ]; then
+	docker stop image_engine
+	docker rm image_engine
 fi
-docker build -t app:0.1 ./app
+docker build -t image_engine:0.1 ./image_engine
 
 docker run \
-	--name app \
-	--link mysql \
+	--name image_engine \
+	--volumes-from data-app \
+	-d \
+	-p 6000:6000 \
+	image_engine:0.1
+
+sp=`docker ps -f name=selp -q`
+if [ -n "${sp}" ]; then
+	docker stop selp
+	docker rm selp
+fi
+docker build -t selp:0.1 ./app
+
+docker run \
+	--name selp \
+	--link postgres \
+	--link image_engine \
 	--volumes-from data-app \
 	-e VIRTUAL_HOST=$VIRTUAL_HOST \
 	-e DB_PASS=$DB_PASS \
-	-it \
+	-e RAILS_ENV=$ENV \
+	-e RACK_ENV=$ENV \
 	-d \
 	-p 3000:3000 \
-	app:0.1
+	selp:0.1
+
+
 
 
 echo "------------ end setup.sh --------------"

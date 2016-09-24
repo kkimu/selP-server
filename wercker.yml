@@ -17,7 +17,7 @@ deploy:
       filename: $HOME/.ssh/id_rsa
       overwrite: true
       hide-from-log: true
-      content: $deploy_to_selp
+      content: $DEPLOY_TO_SELP
     - script:
       name: deploy
       code: ./deploy.sh
