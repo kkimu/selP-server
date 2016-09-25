@@ -32,9 +32,9 @@ Jidori.create(
 
 # キャンペーンデータをやる
 Campaign.create(
-    {name: "おーいお茶！", base_points: 2, description: "お茶を飲んでポイントをもらおう！", sponsor_id: 1, image: "/aaaa"}
+    {name: "おーいお茶！", base_points: 2, description: "お茶を飲んでポイントをもらおう！", sponsor_id: 1, file_path: "/static/campaign/1.jpg"}
 )
 
 Campaign.create(
-    {name: "本", base_points: 2, description: "本を読め。", sponsor_id: 1, image: "/bbbb"}
+    {name: "本", base_points: 2, description: "本を読め。", sponsor_id: 1, file_path: "/static/campaign/2.jpg"}
 )
