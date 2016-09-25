@@ -5,7 +5,7 @@ class Jidori < ApplicationRecord
   belongs_to :campaign
 
   def detects_face_and_campaign(file_path)
-    uri = URI.parse('https://hogehoge/image/' + file_path)
+    uri = URI.parse(ENV['IMAGE_ENGINE_PORT_5000_TCP_ADDR'] + ':' + ENV['IMAGE_ENGINE_PORT_5000_TCP_PORT'] + file_path)
     https = Net::HTTP.new(uri.host, uri.port)
     https.use_ssl = true
     res = https.start {

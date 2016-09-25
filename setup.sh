@@ -36,7 +36,6 @@ if [ -z "${ng}" ]; then
 fi
 
 
-
 ie=`docker ps -f name=image_engine -q`
 if [ -n "${ie}" ]; then
 	docker stop image_engine
@@ -48,8 +47,9 @@ docker run \
 	--name image_engine \
 	--volumes-from data-app \
 	-d \
-	-p 6000:6000 \
+	-p 5000:5000 \
 	image_engine:0.1
+
 
 sp=`docker ps -f name=selp -q`
 if [ -n "${sp}" ]; then
