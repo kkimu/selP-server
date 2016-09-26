@@ -1,10 +1,10 @@
 FROM elenaalexandrovna/opencv-python3
 
-RUN apt-get update
-RUN apt-get install -y python3-pip
-RUN apt-get install -y python-numpy
-RUN pip3 install flask
-RUN pip3 install numpy
+RUN apt-get update && \
+		apt-get install -y python3-pip && \
+		apt-get install -y python-numpy && \
+		pip3 install flask && \
+		pip3 install numpy
 
 COPY . /home/deploy/app
 WORKDIR /home/deploy/app
