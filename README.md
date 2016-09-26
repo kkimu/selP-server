@@ -1,4 +1,4 @@
-[![wercker status](https://app.wercker.com/status/4e99343f60c3e425d2852edd7981977c/s/master "wercker status")](https://app.wercker.com/project/byKey/4e99343f60c3e425d2852edd7981977c)
+[![CircleCI](https://circleci.com/gh/kkimu/selp.svg?style=shield&&circle-token=dac7b349ac0696123a21a9eb9aa92654ce844f25)](https://circleci.com/gh/kkimu/selp)
 
 # selP
 
