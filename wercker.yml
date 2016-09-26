@@ -1,0 +1,23 @@
+box: ruby
+build:
+  steps:
+    - script:
+      name: build
+      code: echo "build"
+deploy:
+  steps:
+    - script:
+      name: install Capistrano
+      code: bundle install
+    - script:
+      name: make .ssh directory
+      code: mkdir -p "$HOME/.ssh"
+    - create-file:
+      name: write ssh key
+      filename: $HOME/.ssh/id_rsa
+      overwrite: true
+      hide-from-log: true
+      content: $DEPLOY_TO_SELP
+    - script:
+      name: deploy
+      code: ./deploy.sh
