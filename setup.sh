@@ -53,6 +53,7 @@ docker run \
 	--name web-api \
 	--link cv \
 	--volumes-from data-app \
+	-e VIRTUAL_HOST=$VIRTUAL_HOST \
 	-e RAILS_ENV=$ENV \
 	-e RACK_ENV=$ENV \
 	-d \
