@@ -6,16 +6,17 @@ echo "------------ start setup.sh --------------"
 
 mkdir -p $PWD/static #staticファイルの置き場所
 
-# アプリのデータコンテナ 起動していないときだけ起動する
+# アプリのデータコンテナ 起動していない場合のみ起動
 da=`docker ps -f name=data-app -aq`
 if [ -z "${da}" ]; then
 	docker run --name data-app -v $PWD/static:/static busybox
 fi
 
-# Nginxのコンテナ 起動していないときだけ起動する
+# Nginxのコンテナ 起動していない場合のみ起動
 ng=`docker ps -f name=nginx -q`
 if [ -z "${ng}" ]; then
 	docker build -t nginx:0.1 ./nginx
+
 	docker run \
 		--name nginx \
 		-v /var/run/docker.sock:/tmp/docker.sock:ro \
@@ -25,38 +26,38 @@ if [ -z "${ng}" ]; then
 fi
 
 # 画像処理部分のコンテナ deployの度に再起動
-ie=`docker ps -f name=image_engine -q`
-if [ -n "${ie}" ]; then
-	docker stop image_engine
-	docker rm image_engine
+cv=`docker ps -f name=cv -aq`
+if [ -n "${cv}" ]; then
+	docker stop cv
+	docker rm cv
 fi
-docker build -t image_engine:0.1 ./image_engine
+docker build -t cv:0.1 ./cv
 
 docker run \
-	--name image_engine \
+	--name cv \
 	--volumes-from data-app \
 	-d \
 	-p 5000:5000 \
-	image_engine:0.1
+	cv:0.1
 
 
-# railsアプリのコンテナ deployの度に再起動
-sp=`docker ps -f name=selp -q`
-if [ -n "${sp}" ]; then
-	docker stop selp
-	docker rm selp
+# web-apiのコンテナ deployの度に再起動
+wa=`docker ps -f name=web-api -aq`
+if [ -n "${wa}" ]; then
+	docker stop web-api
+	docker rm web-api
 fi
-docker build -t selp:0.1 ./app
+docker build -t web-api:0.1 ./web-api
 
 docker run \
-	--name selp \
-	--link image_engine \
+	--name web-api \
+	--link cv \
 	--volumes-from data-app \
 	-e RAILS_ENV=$ENV \
 	-e RACK_ENV=$ENV \
 	-d \
 	-p 3000:3000 \
-	selp:0.1
+	web-api:0.1
 
 
 

@@ -6,7 +6,7 @@ class Jidori < ApplicationRecord
 
   def detects_face_and_campaign(file_path)
     #uri = URI.parse('http://' + ENV['IMAGE_ENGINE_PORT_5000_TCP_ADDR'] + ':' + ENV['IMAGE_ENGINE_PORT_5000_TCP_PORT'] + '/image/' + file_path.chomp.split('/')[-1])
-    uri = URI.parse('http://' + ENV['IMAGE_ENGINE_PORT_5000_TCP_ADDR'] + ':' + ENV['IMAGE_ENGINE_PORT_5000_TCP_PORT'] + '/image/book.jpg')
+    uri = URI.parse('http://' + ENV['CV_PORT_5000_TCP_ADDR'] + ':' + ENV['CV_PORT_5000_TCP_PORT'] + '/image/book.jpg')
     http = Net::HTTP.new(uri.host, uri.port)
     res = http.start { |h|
       h.get(uri.request_uri)
