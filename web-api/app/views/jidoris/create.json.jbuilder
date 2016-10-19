@@ -8,6 +8,14 @@ json.product do
   end
 end
 
+json.jidori do
+  json.id @jidori.id
+  json.impressions @jidori.impressions
+  json.points @jidori.points
+  json.facebook_object_id @jidori.facebook_object_id
+  json.image_file_name @jidori.image_file_name
+end
+
 json.information do
   json.user_total_points @jidori.user.total_points
   json.message '成功'

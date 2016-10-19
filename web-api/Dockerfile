@@ -13,4 +13,4 @@ RUN gem install bundler && bundle install --path vendor/bundle
 COPY . /home/deploy/app
 EXPOSE 3000
 
-CMD bin/rake db:migrate && bin/rake db:seed && rails server -b 0.0.0.0 -e development
+CMD bin/rake db:migrate && bin/rake db:seed && rails server -b 0.0.0.0 -e production
