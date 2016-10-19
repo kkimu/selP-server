@@ -20,10 +20,9 @@ task :deploy do
 		if test "[ -d #{deploy_to}/#{application} ]"
 			execute "cd #{deploy_to}/#{application}; git pull"
 		else
-			execute "cd #{deploy_to}; git clone -b #{branch} #{fetch :repo_url} #{application}; cd #{application}"
+			execute "cd #{deploy_to}; git clone -b #{branch} #{fetch :repo_url} #{application}"
 		end
-		execute "sudo chown deploy:deploy -R *"
-		execute "sudo bash -l setup.sh"
+		execute "cd #{deploy_to}/#{application}; sudo chown deploy:deploy -R *; sudo bash -l setup.sh"
 	end
 end
 
