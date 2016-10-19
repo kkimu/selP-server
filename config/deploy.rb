@@ -2,7 +2,7 @@
 lock '3.6.1'
 
 set :application, 'selp-server'
-set :repo_url, 'git@github.com:kkimu/selp.git'
+set :repo_url, 'git@github.com:kkimu/selP-server.git'
 set :scm, :git
 set :deploy_to, "/home/deploy/selp"
 set :branch, "deploy"
