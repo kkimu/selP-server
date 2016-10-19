@@ -6,11 +6,6 @@ machine:
   ruby:
     version: 2.2.4
 
-checkout:
-  post:
-    - git submodule sync
-    - git submodule update --init
-
 dependencies:
   override:
     - echo "-----dependencies-----"
