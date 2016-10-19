@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.6.1'
 
-set :application, 'selp'
+set :application, 'selp-server'
 set :repo_url, 'git@github.com:kkimu/selp.git'
 set :scm, :git
 set :deploy_to, "/home/deploy/selp"
@@ -18,10 +18,12 @@ task :deploy do
 		execute "sudo chown deploy:deploy #{deploy_to}"
 
 		if test "[ -d #{deploy_to}/#{application} ]"
-			execute "cd #{deploy_to}/#{application}; git pull; sudo bash -l setup.sh"
+			execute "cd #{deploy_to}/#{application}; git pull"
 		else
-			execute "cd #{deploy_to}; git clone -b #{branch} #{fetch :repo_url} #{application}; cd #{application}; sudo bash -l setup.sh"
+			execute "cd #{deploy_to}; git clone -b #{branch} #{fetch :repo_url} #{application}; cd #{application}"
 		end
+		execute "sudo chown deploy:deploy -R *"
+		execute "sudo bash -l setup.sh"
 	end
 end
 
