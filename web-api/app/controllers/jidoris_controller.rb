@@ -12,7 +12,8 @@ class JidorisController < ApplicationController
     @jidori = @user.jidoris.build(jidori_params)
     @jidori.save!
 
-    @jidori.post_to_sns(@user.auth_token, @jidori.image.path)
+    res = @jidori.post_to_sns(@user.auth_token, @jidori.image.path)
+    @jidori.update_columns(facebook_object_id: res['post_id'])
 
     render 'create', formats: [:json], handlers: [:jbuilder], status: :created
   rescue => e

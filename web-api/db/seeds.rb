@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create(
     [
-        {name: 'tsrd', email: 'a@sample.com', auth_token: 'EAACEdEose0cBAAiolk61gXTzZBG5WbVTLh42UC69f2x7KpvE5buH15e3cYW0ZAUfH7LZBCi0MZBs74Tv1V3bZBdezh7edvTbN83HcGQmBMY7DHY2wIYngNI1OclVhVle7ZCYo9CovawMEnIRSXOnZBAgiSatSOKFV6a3SYKZBHfkHwZDZD'},
-        {name: 'shiitake', email: 'b@sample.com', auth_token: 'EAACEdEose0cBAAiolk61gXTzZBG5WbVTLh42UC69f2x7KpvE5buH15e3cYW0ZAUfH7LZBCi0MZBs74Tv1V3bZBdezh7edvTbN83HcGQmBMY7DHY2wIYngNI1OclVhVle7ZCYo9CovawMEnIRSXOnZBAgiSatSOKFV6a3SYKZBHfkHwZDZD'}
+        {name: 'tsrd', email: 'a@sample.com', auth_token: 'EAACEdEose0cBACgYprE4yYT6kbZAQN1kZAx4hcyo2z0lOPoMadzDZA9IzmGz7uZC7hSZCpww87GreMAMqGx2ft8vgd9wpxzWZA7lgXYzvmGxMaCOPYbGvVV9ddZBWDZCqWZALSUWBmXwe5viohVMCSxiUZACKZC2qZCozoaTkLtcxnzHclcF7wIl8axF'},
+        {name: 'shiitake', email: 'b@sample.com', auth_token: 'EAACEdEose0cBACgYprE4yYT6kbZAQN1kZAx4hcyo2z0lOPoMadzDZA9IzmGz7uZC7hSZCpww87GreMAMqGx2ft8vgd9wpxzWZA7lgXYzvmGxMaCOPYbGvVV9ddZBWDZCqWZALSUWBmXwe5viohVMCSxiUZACKZC2qZCozoaTkLtcxnzHclcF7wIl8axF'}
     ])
 
 Sponsor.create(

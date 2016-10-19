@@ -14,7 +14,7 @@ class Jidori < ApplicationRecord
   validates_attachment_content_type :image, content_type: %w(image/jpeg image/jpg image/png)
   validates_attachment :image,
                        presence: true,
-                       less_than: 5.megabytes
+                       less_than: 50.megabytes
 
 
   def detect_face_and_product(file_name)
@@ -33,6 +33,7 @@ class Jidori < ApplicationRecord
   private
 
   def check_face_and_product
+    self.update_columns(image_file_name: File.basename(self.image.path))
     res_cv = detect_face_and_product(self.image_file_name)
     unless res_cv
       self.errors.add(:base, 'CVサーバからの応答が空です')
@@ -49,8 +50,7 @@ class Jidori < ApplicationRecord
 
     detected_product = Product.find_by(image_file_name: File.basename(res_cv['product_path']))
     self.update_columns(product_id: detected_product.id,
-                        points: detected_product.base_points,
-                        image_file_name: File.basename(self.image.path))
+                        points: detected_product.base_points)
 
     true
   end
