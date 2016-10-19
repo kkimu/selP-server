@@ -6,35 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create(
-    {name: "koutake", email: "a@sample.com", auth_token: "aaaaaaaaaaaaaaaa"}
-)
+    [
+        {name: 'tsrd', email: 'a@sample.com', auth_token: 'EAACEdEose0cBAAiolk61gXTzZBG5WbVTLh42UC69f2x7KpvE5buH15e3cYW0ZAUfH7LZBCi0MZBs74Tv1V3bZBdezh7edvTbN83HcGQmBMY7DHY2wIYngNI1OclVhVle7ZCYo9CovawMEnIRSXOnZBAgiSatSOKFV6a3SYKZBHfkHwZDZD'},
+        {name: 'shiitake', email: 'b@sample.com', auth_token: 'EAACEdEose0cBAAiolk61gXTzZBG5WbVTLh42UC69f2x7KpvE5buH15e3cYW0ZAUfH7LZBCi0MZBs74Tv1V3bZBdezh7edvTbN83HcGQmBMY7DHY2wIYngNI1OclVhVle7ZCYo9CovawMEnIRSXOnZBAgiSatSOKFV6a3SYKZBHfkHwZDZD'}
+    ])
 
-User.create(
-    {name: "shiitake", email: "b@sample.com", auth_token: "bbbbbbbbbbbbbbbbb"}
-)
+Sponsor.create(
+    [
+        {name: '伊藤園', email: 'itouen@sample.com'},
+        {name: '大塚製薬', email: 'ootsuka@sample.com'}
+    ])
 
-# 自撮り
-Jidori.create(
-    {campaign_id: 1, user_id: 1, post_url: "sample.com", impression: 3, points: 3, image: "/aaaaaaaaa"}
-)
+Product.create(
+    [
+        {name: 'カロリーメイト', base_points: 30, like_points: 2, description: 'カロリーメイト チーズ味', sponsor_id: 2, image: File.new("#{Rails.root}/public/img/calorie_mate.jpg")}
+    ])
 
-Jidori.create(
-    {campaign_id: 2, user_id: 1, post_url: "sample.com", impression: 3, points: 3, image: "/aaaaaaaaa"}
-)
-
-Jidori.create(
-    {campaign_id: 1, user_id: 2, post_url: "sample.com", impression: 3, points: 3, image: "/aaaaaaaaa"}
-)
-Jidori.create(
-    {campaign_id: 2, user_id: 1, post_url: "sample.com", impression: 3, points: 3, image: "/aaaaaaaaa"}
-)
-
-
-# キャンペーンデータをやる
-Campaign.create(
-    {name: "おーいお茶！", base_points: 2, description: "お茶を飲んでポイントをもらおう！", sponsor_id: 1, file_path: "/static/campaign/ocha.jpg"}
-)
-
-Campaign.create(
-    {name: "本", base_points: 2, description: "本を読め。", sponsor_id: 1, file_path: "/static/campaign/book.jpg"}
-)

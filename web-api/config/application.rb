@@ -6,7 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-#config.autoload_paths << Rails.root.join('app', 'uploaders')
 
 module SelpApi
   class Application < Rails::Application
