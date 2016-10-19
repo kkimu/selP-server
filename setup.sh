@@ -12,6 +12,19 @@ if [ -z "${da}" ]; then
 	docker run --name data-app -v $PWD/static:/static busybox
 fi
 
+# postgresのコンテナ
+db=`docker ps -f name=db -q`
+if [ -z "${db}" ]; then
+	docker build -t postgres:0.1 ./db
+
+	docker run \
+		--name db \
+		-e POSTGRES_PASSWORD=dbpass \
+		-d \
+		-p 5432:5432 \
+		postgres:0.1
+fi
+
 # Nginxのコンテナ 起動していない場合のみ起動
 ng=`docker ps -f name=nginx -q`
 if [ -z "${ng}" ]; then
@@ -52,6 +65,7 @@ docker build -t web-api:0.1 ./web-api
 docker run \
 	--name web-api \
 	--link cv \
+	--link db \
 	--volumes-from data-app \
 	-e VIRTUAL_HOST=$VIRTUAL_HOST \
 	-e RAILS_ENV=$ENV \
