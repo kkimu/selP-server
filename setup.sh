@@ -56,6 +56,7 @@ docker run \
 	-e VIRTUAL_HOST=$VIRTUAL_HOST \
 	-e RAILS_ENV=$ENV \
 	-e RACK_ENV=$ENV \
+	-e SECRET_KEY_BASE=$SECRET_KEY_BASE \
 	-d \
 	-p 3000:3000 \
 	web-api:0.1
