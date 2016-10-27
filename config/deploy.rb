@@ -3,6 +3,8 @@ lock '3.6.1'
 
 set :application, 'selp-server'
 set :repo_url, 'git@github.com:kkimu/selP-server.git'
+set :web_api_repo, 'git@github.com:dulltz/selP-web-api'
+set :cv_repo, 'git@github.com:dulltz/selP-cv'
 set :scm, :git
 set :deploy_to, "/home/deploy/selp"
 set :branch, "deploy"
@@ -11,21 +13,12 @@ set :pty, true
 desc "deploy selp"
 task :deploy do
 	on roles(:web) do
-		application = fetch :application
 		deploy_to = fetch :deploy_to
 		branch = fetch :branch
 
-		execute "sudo chown deploy:deploy #{deploy_to}"
-
-		if test "[ -d #{deploy_to}/#{application} ]"
-			execute "cd #{deploy_to}/#{application}; git pull"
-		else
-			execute "cd #{deploy_to}; git clone -b #{branch} #{fetch :repo_url} #{application}"
-		end
-		execute "cd #{deploy_to}/#{application}; sudo chown deploy:deploy -R *; sudo bash -l setup.sh"
+		execute "cd #{deploy_to}/current; git clone -b #{branch} #{fetch :web_api_repo} web-api; git clone -b #{branch} #{fetch :cv_repo} cv; git sudo chown deploy:deploy -R *; sudo bash -l setup.sh"
 	end
 end
-
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
