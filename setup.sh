@@ -11,7 +11,7 @@ rm $PWD/static/products/*
 # アプリのデータコンテナ 起動していない場合のみ起動
 da=`docker ps -f name=data-app -aq`
 if [ -z "${da}" ]; then
-	docker run --name data-app -v $PWD/web-api/public/images:/static busybox
+	docker run --name data-app -v $PWD/static:/static busybox
 fi
 
 # postgresのコンテナ
