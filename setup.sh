@@ -5,7 +5,7 @@ echo "------------ start setup.sh --------------"
 
 
 mkdir -p $PWD/static/jidoris #画像ファイルの置き場所
-rm -r $PWD/static/products
+rm -rf $PWD/static/products
 mkdir -p $PWD/static/products
 mkdir -p $PWD/static/outputs
 
