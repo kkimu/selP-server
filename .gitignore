@@ -1,3 +1,6 @@
 log/
 web-api/
 cv/
+static/jidoris/*
+static/products/*
+static/outputs/*
