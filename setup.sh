@@ -4,12 +4,15 @@ set -ex
 echo "------------ start setup.sh --------------"
 
 
-mkdir -p $PWD/static #staticファイルの置き場所
+mkdir -p $PWD/static/jidoris #画像ファイルの置き場所
+rm -r $PWD/static/products
+mkdir -p $PWD/static/products
+mkdir -p $PWD/static/outputs
 
 # アプリのデータコンテナ 起動していない場合のみ起動
 da=`docker ps -f name=data-app -aq`
 if [ -z "${da}" ]; then
-	docker run --name data-app -v $PWD/web-api/public/img/static:/static busybox
+	docker run --name data-app -v $PWD/static:/static busybox
 fi
 
 # postgresのコンテナ
@@ -49,6 +52,7 @@ docker build -t cv:0.1 ./cv
 docker run \
 	--name cv \
 	--volumes-from data-app \
+	-e ENV=$ENV \
 	-d \
 	-p 5000:5000 \
 	cv:0.1
