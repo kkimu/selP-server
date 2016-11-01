@@ -4,12 +4,6 @@ set -ex
 echo "------------ start setup.sh --------------"
 
 
-mkdir -p $PWD/static/jidoris #画像ファイルの置き場所
-rm -rf $PWD/static/products
-mkdir -p $PWD/static/products
-mkdir -p $PWD/static/outputs
-chown deploy:deploy -R *
-
 # アプリのデータコンテナ 起動していない場合のみ起動
 da=`docker ps -f name=data-app -aq`
 if [ -n "${da}" ]; then

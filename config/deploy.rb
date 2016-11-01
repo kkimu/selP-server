@@ -16,6 +16,10 @@ task :deploy do
 		deploy_to = fetch :deploy_to
 		branch = fetch :branch
 
+		execute "mkdir -p #{deploy_to}/static/jidoris"
+		execute "rm -rf #{deploy_to}/static/products"
+		execute "mkdir -p #{deploy_to}/static/products"
+		execute "mkdir -p #{deploy_to}/static/outputs"
 		execute "cd #{deploy_to}/current; git clone #{fetch :web_api_repo} web-api; git clone #{fetch :cv_repo} cv; sudo chown deploy:deploy -R *; sudo bash -l setup.sh"
 	end
 end
