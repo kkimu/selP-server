@@ -12,6 +12,7 @@ mkdir -p $PWD/static/outputs
 # アプリのデータコンテナ 起動していない場合のみ起動
 da=`docker ps -f name=data-app -aq`
 if [ -z "${da}" ]; then
+	docker rm data-app
 	docker run --name data-app -v $PWD/static:/static busybox
 fi
 
